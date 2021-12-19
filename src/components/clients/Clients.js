@@ -14,6 +14,7 @@ function Clients() {
 	useEffect(() => {
 		consultAPI()
 	}, [])
+
 	return (
 		<>
 			<h2>Clients</h2>

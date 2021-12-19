@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import clientAxios from '../../config/axios'
+
 import Swal from 'sweetalert2'
 
 function EditClient() {
+	const { id } = useParams()
+	let navigate = useNavigate()
+
 	const [client, setClient] = useState({
 		name: '',
 		firstName: '',
@@ -11,8 +16,33 @@ function EditClient() {
 		telephone: '',
 	})
 
+	const consultAPI = async () => {
+		const consultClient = await clientAxios.get(`/clients/${id}`)
+		setClient(consultClient.data)
+	}
+
+	useEffect(() => {
+		consultAPI()
+	}, [])
+
 	const handleChange = (e) => {
 		setClient({ ...client, [e.target.name]: e.target.value })
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		clientAxios.put(`/clients/${client._id}`, client).then((res) => {
+			if (res.data.code === 11000) {
+				Swal.fire({
+					type: 'error',
+					title: 'An error occurred',
+					text: 'This client already exists',
+				})
+			} else {
+				Swal.fire('Update client', res.data.message, 'success')
+			}
+			navigate('/')
+		})
 	}
 
 	const validateClient = () => {
@@ -29,8 +59,8 @@ function EditClient() {
 
 	return (
 		<>
-			<h2>New Client</h2>
-			<form>
+			<h2>Edit Client</h2>
+			<form onSubmit={handleSubmit}>
 				<legend>Fill all the fields</legend>
 				<div className="campo">
 					<label>Name:</label>
@@ -39,6 +69,7 @@ function EditClient() {
 						placeholder="name Cliente"
 						name="name"
 						onChange={handleChange}
+						value={client.name}
 					/>
 				</div>
 
@@ -49,6 +80,7 @@ function EditClient() {
 						placeholder="firstName Cliente"
 						name="firstName"
 						onChange={handleChange}
+						value={client.firstName}
 					/>
 				</div>
 
@@ -59,6 +91,7 @@ function EditClient() {
 						placeholder="company Cliente"
 						name="company"
 						onChange={handleChange}
+						value={client.company}
 					/>
 				</div>
 
@@ -69,6 +102,7 @@ function EditClient() {
 						placeholder="Email Cliente"
 						name="email"
 						onChange={handleChange}
+						value={client.email}
 					/>
 				</div>
 
@@ -79,6 +113,7 @@ function EditClient() {
 						placeholder="Teléfono Cliente"
 						name="telephone"
 						onChange={handleChange}
+						value={client.telephone}
 					/>
 				</div>
 
@@ -86,7 +121,7 @@ function EditClient() {
 					<input
 						type="submit"
 						className="btn btn-azul"
-						value="Add Client"
+						value="Save Client"
 						disabled={validateClient()}
 					/>
 				</div>
