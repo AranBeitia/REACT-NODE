@@ -13,7 +13,7 @@ function Clients() {
 
 	useEffect(() => {
 		consultAPI()
-	}, [])
+	}, [clients])
 
 	return (
 		<>
