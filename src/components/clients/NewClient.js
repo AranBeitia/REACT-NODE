@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import clientAxios from '../../config/axios'
+import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 function NewClient() {
+	let navigate = useNavigate()
 	const [client, setClient] = useState({
 		name: '',
 		firstName: '',
@@ -17,11 +20,16 @@ function NewClient() {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		clientAxios.post('/clients', client).then((res) => {
-			if (res.data.code === 1100) {
-				console.log('Error with duplicated data')
+			if (res.data.code === 11000) {
+				Swal.fire({
+					type: 'error',
+					title: 'An error occurred',
+					text: 'This client already exists',
+				})
 			} else {
-				console.log(res.data)
+				Swal.fire('New client', res.data.message, 'success')
 			}
+			navigate('/')
 		})
 	}
 
