@@ -3,7 +3,7 @@ const Header = () => {
 	return (
 		<header className="barra">
 			<div className="contenedor">
-				<h1>CRM - Administrador de Clientes</h1>
+				<h1>CRM - Clients Administration</h1>
 			</div>
 		</header>
 	)

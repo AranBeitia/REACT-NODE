@@ -16,7 +16,7 @@ function Clients() {
 	}, [])
 	return (
 		<>
-			<h2>Clientes</h2>
+			<h2>Clients</h2>
 
 			<Link to={'/clients/new'} className="btn btn-verde nvo-cliente">
 				<i className="fas fa-plus-circle"></i>
@@ -26,6 +26,7 @@ function Clients() {
 				{clients.map((client) => (
 					<Client
 						key={client._id}
+						id={client._id}
 						name={client.name}
 						company={client.company}
 						email={client.email}

@@ -5,6 +5,7 @@ import Navigation from './components/layout/Navigation'
 
 import Clients from './components/clients/Clients'
 import NewClient from './components/clients/NewClient'
+import EditClient from './components/clients/EditClient'
 
 import Products from './components/products/Products'
 import Orders from './components/orders/Orders'
@@ -19,6 +20,7 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Clients />} />
 						<Route path="/clients/new" element={<NewClient />} />
+						<Route path="/clients/edit/:id" element={<EditClient />} />
 						<Route path="/products" element={<Products />} />
 						<Route path="/orders" element={<Orders />} />
 					</Routes>
