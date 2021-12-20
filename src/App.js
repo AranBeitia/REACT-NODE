@@ -10,6 +10,8 @@ import EditClient from './components/clients/EditClient'
 import Products from './components/products/Products'
 import Orders from './components/orders/Orders'
 
+import Login from './components/auth/Login'
+
 function App() {
 	return (
 		<>
@@ -23,6 +25,7 @@ function App() {
 						<Route path="/clients/edit/:id" element={<EditClient />} />
 						<Route path="/products" element={<Products />} />
 						<Route path="/orders" element={<Orders />} />
+						<Route path="/start-session" element={<Login />} />
 					</Routes>
 				</main>
 			</div>
