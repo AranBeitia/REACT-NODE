@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import clientAxios from '../../config/axios'
 import Product from './Product'
+import Spinner from '../layout/Spinner'
 
 function Products() {
 	const [products, setProducts] = useState([])
@@ -13,7 +14,7 @@ function Products() {
 
 	useEffect(() => {
 		consultAPI()
-	}, [])
+	}, [products])
 
 	return (
 		<>
@@ -23,7 +24,7 @@ function Products() {
 			</Link>
 
 			<ul className="listado-productos">
-				{products.length > 0 ? (
+				{products.length ? (
 					products.map((product) => (
 						<Product
 							key={product._id}
@@ -34,7 +35,7 @@ function Products() {
 						/>
 					))
 				) : (
-					<p>No products yet</p>
+					<Spinner />
 				)}
 			</ul>
 		</>

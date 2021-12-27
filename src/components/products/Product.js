@@ -1,9 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import clientAxios from '../../config/axios'
+import Swal from 'sweetalert2'
 
 function Product({ id, name, prize, image }) {
 	const deleteProduct = (id) => {
-		console.log(id)
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				clientAxios.delete(`/products/${id}`).then((res) => {
+					if (res.status === 200) {
+						Swal.fire('Deleted!', res.data.message, 'success')
+					}
+				})
+			}
+		})
 	}
 	return (
 		<li className="producto">

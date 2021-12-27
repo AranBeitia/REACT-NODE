@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import clientAxios from '../../config/axios'
 import Client from './Client'
+import Spinner from '../layout/Spinner'
 
 function Clients() {
 	const [clients, setClients] = useState([])
@@ -13,7 +14,7 @@ function Clients() {
 
 	useEffect(() => {
 		consultAPI()
-	}, [clients])
+	}, [])
 
 	return (
 		<>
@@ -24,16 +25,20 @@ function Clients() {
 				New Client
 			</Link>
 			<ul className="listado-clientes">
-				{clients.map((client) => (
-					<Client
-						key={client._id}
-						id={client._id}
-						name={client.name}
-						company={client.company}
-						email={client.email}
-						telephone={client.telephone}
-					/>
-				))}
+				{clients.length ? (
+					clients.map((client) => (
+						<Client
+							key={client._id}
+							id={client._id}
+							name={client.name}
+							company={client.company}
+							email={client.email}
+							telephone={client.telephone}
+						/>
+					))
+				) : (
+					<Spinner />
+				)}
 			</ul>
 		</>
 	)
