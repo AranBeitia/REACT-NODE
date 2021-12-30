@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import clientAxios from '../../config/axios'
 import Swal from 'sweetalert2'
 
-function Product({ id, name, prize, image }) {
+function Product({ id, name, price, image }) {
 	const deleteProduct = (id) => {
 		Swal.fire({
 			title: 'Are you sure?',
@@ -27,7 +27,7 @@ function Product({ id, name, prize, image }) {
 		<li className="producto">
 			<div className="info-producto">
 				<p className="nombre">{name}</p>
-				<p className="precio">${prize}</p>
+				<p className="precio">${price}</p>
 				{image ? (
 					<img src={`http://127.0.0.1:5000/${image}`} alt={image} />
 				) : (
